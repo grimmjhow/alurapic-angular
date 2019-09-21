@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Photo } from '../photo/photo';
@@ -16,11 +16,8 @@ export class PhotoListComponent implements OnInit {
   ngOnInit(): void {
 
     const username = this.activatedRoute.snapshot.params.userName;
-
     this.photoService.listFromUser(username)
-                     .subscribe(photos => {
-                        this.photos = photos;
-                      });
+                     .subscribe({ next: photos => { this.photos = photos; } });
   }
 
 }
